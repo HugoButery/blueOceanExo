@@ -1,10 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('docker') {
+    stage('git push') {
       steps {
-        sh 'docker build -t new-image .'
-        sh 'docker run -p "3000:3000" my-image'
+        sh '''git branch release
+git checkout release
+echo "this is new content" > newfile.txt
+git add *
+git commit -m "a new file on new branch"
+git push origin release'''
       }
     }
 
